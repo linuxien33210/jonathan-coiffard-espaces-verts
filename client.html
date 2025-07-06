@@ -271,14 +271,31 @@
 
         .photos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Styles pour redimensionner les photos */
+        .photo {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .photo:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
 
         .photo-placeholder {
             background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
-            height: 150px;
-            border-radius: 10px;
+            height: 220px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -327,6 +344,50 @@
             box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
         }
 
+        /* Lightbox pour voir les photos en grand */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            cursor: pointer;
+        }
+
+        .lightbox-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .lightbox img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .close-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .header-content {
@@ -342,6 +403,25 @@
             .login-box {
                 margin: 1rem;
                 padding: 2rem;
+            }
+
+            .photos-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1rem;
+            }
+
+            .photo {
+                height: 180px;
+            }
+
+            .photo-placeholder {
+                height: 180px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .photos-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -409,13 +489,14 @@
             <div class="photo-gallery">
                 <h3>📸 Photos de vos chantiers</h3>
                 <div class="photos-grid">
-                    <img src="mazoyer-haie-1.jpg" alt="Photo avant intervention" class="photo">
-                    <img src="mazoyer-haie-2.jpg" alt="Photo avant intervention" class="photo">
-                    <img src="mazoyer-haie-3.jpg" alt="Photo avant intervention" class="photo">
-                    <img src="mazoyer-haie-4.jpg" alt="Photo avant intervention" class="photo">
+                    <img src="mazoyer-haie-1.jpg" alt="Photo avant intervention" class="photo" onclick="openLightbox(this.src)">
+                    <img src="mazoyer-haie-2.jpg" alt="Photo avant intervention" class="photo" onclick="openLightbox(this.src)">
+                    <img src="mazoyer-haie-3.jpg" alt="Photo avant intervention" class="photo" onclick="openLightbox(this.src)">
+                    <img src="mazoyer-haie-4.jpg" alt="Photo avant intervention" class="photo" onclick="openLightbox(this.src)">
                 </div>
                 <p style="color: #666; margin-top: 1rem; text-align: center;">
-                    📷 Les photos de vos chantiers seront ajoutées par Jonathan après chaque intervention
+                    📷 Les photos de vos chantiers seront ajoutées par Jonathan après chaque intervention<br>
+                    💡 Cliquez sur une photo pour l'agrandir
                 </p>
             </div>
 
@@ -432,6 +513,14 @@
                     </a>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Lightbox pour agrandir les photos -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="Photo agrandie">
         </div>
     </div>
 
@@ -555,6 +644,23 @@
             document.getElementById('password').value = '';
             document.getElementById('errorMessage').style.display = 'none';
         }
+
+        // Fonctions pour la lightbox (agrandir les photos)
+        function openLightbox(src) {
+            document.getElementById('lightbox').style.display = 'block';
+            document.getElementById('lightbox-img').src = src;
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        // Fermer la lightbox avec la touche Échap
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeLightbox();
+            }
+        });
     </script>
 </body>
 </html>
