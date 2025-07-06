@@ -65,6 +65,22 @@
             font-size: 0.9rem;
         }
 
+        .client-access-header {
+            background: rgba(255,255,255,0.15);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .client-access-header:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-1px);
+        }
+
         /* Hero Section */
         .hero {
             background: linear-gradient(135deg, rgba(21, 101, 192, 0.95), rgba(46, 125, 50, 0.9), rgba(25, 118, 210, 0.95));
@@ -110,6 +126,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            font-size: 1rem;
         }
 
         .btn-primary {
@@ -124,9 +141,20 @@
             border: 2px solid #4caf50;
         }
 
+        .btn-client {
+            background: linear-gradient(45deg, #f57c00, #ef6c00);
+            color: white;
+            box-shadow: 0 4px 15px rgba(245, 124, 0, 0.4);
+            border: 2px solid rgba(245, 124, 0, 0.3);
+        }
+
         .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .btn-client:hover {
+            box-shadow: 0 8px 25px rgba(245, 124, 0, 0.3);
         }
 
         /* Services Section */
@@ -361,6 +389,12 @@
                 align-items: center;
             }
 
+            .btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+
             .contact-content {
                 grid-template-columns: 1fr;
                 gap: 2rem;
@@ -386,6 +420,11 @@
 
             .contact {
                 padding: 3rem 0;
+            }
+
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
             }
         }
 
@@ -429,6 +468,9 @@
                         <span>✉️</span>
                         <span>contact.travail.gironde@gmail.com</span>
                     </div>
+                    <a href="client.html" class="client-access-header">
+                        🔐 Espace Client
+                    </a>
                 </div>
             </div>
         </div>
@@ -447,6 +489,10 @@
                 <a href="#contact" class="btn btn-secondary">
                     <span>📞</span>
                     Devis Gratuit
+                </a>
+                <a href="client.html" class="btn btn-client">
+                    <span>🔐</span>
+                    Espace Client
                 </a>
             </div>
         </div>
