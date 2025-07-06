@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Client - Jonathan COIFFARD</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #e3f2fd 0%, #e8f5e8 50%, #f0f8ff 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1565c0 0%, #2e7d32 50%, #1976d2 100%);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-section h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+
+        .logo-section p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Login Form */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 2rem 0;
+        }
+
+        .login-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-box h2 {
+            background: linear-gradient(45deg, #1976d2, #2e7d32);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #1976d2;
+            box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #1976d2, #1565c0);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(25, 118, 210, 0.3);
+        }
+
+        .error-message {
+            color: #f44336;
+            background: #ffebee;
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        /* Client Dashboard */
+        .dashboard {
+            display: none;
+            padding: 2rem 0;
+        }
+
+        .welcome-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .welcome-section h2 {
+            background: linear-gradient(45deg, #1976d2, #2e7d32);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .client-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8f5e8 100%);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid #1976d2;
+        }
+
+        .info-card h4 {
+            color: #1565c0;
+            margin-bottom: 0.5rem;
+        }
+
+        .services-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .service-card h3 {
+            color: #1565c0;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .service-status {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .status-planned {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .status-progress {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .status-completed {
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+
+        .service-details {
+            margin-bottom: 1rem;
+        }
+
+        .service-details p {
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+
+        .service-details strong {
+            color: #333;
+        }
+
+        .photo-gallery {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .photo-gallery h3 {
+            color: #1565c0;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .photos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .photo-placeholder {
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            height: 150px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-style: italic;
+            border: 2px dashed #ccc;
+        }
+
+        .contact-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .contact-section h3 {
+            color: #1565c0;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .contact-btn {
+            background: linear-gradient(45deg, #4caf50, #2e7d32);
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .login-box {
+                margin: 1rem;
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <h1>🌿 Jonathan COIFFARD</h1>
+                    <p>Espace Client - Suivi de vos chantiers</p>
+                </div>
+                <div id="logoutSection" style="display: none;">
+                    <button class="logout-btn" onclick="logout()">🚪 Déconnexion</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Form -->
+    <div id="loginForm" class="login-container">
+        <div class="container">
+            <div class="login-box">
+                <h2>🔐 Connexion Client</h2>
+                <div id="errorMessage" class="error-message">
+                    Email ou mot de passe incorrect.
+                </div>
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="email">📧 Email :</label>
+                        <input type="email" id="email" required placeholder="Votre adresse email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">🔑 Mot de passe :</label>
+                        <input type="password" id="password" required placeholder="Votre mot de passe">
+                    </div>
+                    <button type="submit" class="login-btn">🚀 Se connecter</button>
+                </form>
+                <p style="color: #666; font-size: 0.9rem; margin-top: 1rem;">
+                    💡 Vos identifiants vous ont été communiqués par Jonathan
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="dashboard">
+        <div class="container">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <h2 id="welcomeMessage">Bienvenue dans votre espace client</h2>
+                <p>Suivez l'avancement de vos chantiers et consultez l'historique de nos interventions.</p>
+                <div class="client-info" id="clientInfo">
+                    <!-- Informations client dynamiques -->
+                </div>
+            </div>
+
+            <!-- Services Section -->
+            <div class="services-section" id="servicesSection">
+                <!-- Services dynamiques -->
+            </div>
+
+            <!-- Photo Gallery -->
+            <div class="photo-gallery">
+                <h3>📸 Photos de vos chantiers</h3>
+                <div class="photos-grid">
+                    <div class="photo-placeholder">Photo avant intervention</div>
+                    <div class="photo-placeholder">Photo pendant travaux</div>
+                    <div class="photo-placeholder">Photo après intervention</div>
+                    <div class="photo-placeholder">Photo détail 1</div>
+                </div>
+                <p style="color: #666; margin-top: 1rem; text-align: center;">
+                    📷 Les photos de vos chantiers seront ajoutées par Jonathan après chaque intervention
+                </p>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="contact-section">
+                <h3>📞 Besoin de nous contacter ?</h3>
+                <p>Pour toute question ou demande, nous sommes à votre disposition !</p>
+                <div class="contact-buttons">
+                    <a href="tel:0771025542" class="contact-btn">
+                        📞 Appeler : 07 71 02 55 42
+                    </a>
+                    <a href="mailto:contact.travail.gironde@gmail.com" class="contact-btn">
+                        ✉️ Email
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Base de données clients
+        const clients = {
+            'lig.outo@laposte.net': {
+                password: 'MAZOYER2025',
+                name: 'Monsieur MAZOYER Christian',
+                address: '60 route de Darmand, 33450 MARIMBAULT',
+                phone: '06 02 68 06 88',
+                email: 'lig.outo@laposte.net',
+                services: [
+                    {
+                        title: 'Débroussaillage terrain',
+                        status: 'completed',
+                        statusText: 'Terminé',
+                        date: '15 Novembre 2024',
+                        description: 'Débroussaillage complet du terrain arrière avec évacuation des végétaux.',
+                        details: 'Surface traitée : 500m² - Durée : 1 journée'
+                    },
+                    {
+                        title: 'Taille de haies',
+                        status: 'planned',
+                        statusText: 'Planifié',
+                        date: '20 Janvier 2025',
+                        description: 'Taille des haies de laurier et thuya selon les règles de l\'art.',
+                        details: 'Longueur : 50m linéaires - Durée prévue : demi-journée'
+                    }
+                ]
+            },
+            'martialtranchant@outlook.fr': {
+                password: 'TRANCHANT2025',
+                name: 'Monsieur et Madame TRANCHANT Patricia et Martial',
+                address: '39 route des creuses, 74150 Sales',
+                phone: '06 84 56 71 33',
+                email: 'martialtranchant@outlook.fr',
+                services: [
+                    {
+                        title: 'Entretien jardin d\'hiver',
+                        status: 'progress',
+                        statusText: 'En cours',
+                        date: '10 Décembre 2024',
+                        description: 'Nettoyage et préparation du jardin pour l\'hiver.',
+                        details: 'Taille des rosiers, ramassage feuilles, bêchage parterre'
+                    },
+                    {
+                        title: 'Élagage arbres fruitiers',
+                        status: 'planned',
+                        statusText: 'Planifié',
+                        date: 'Février 2025',
+                        description: 'Élagage des pommiers et poiriers selon la saison.',
+                        details: '4 arbres fruitiers - Période optimale février/mars'
+                    }
+                ]
+            }
+        };
+
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (clients[email] && clients[email].password === password) {
+                // Connexion réussie
+                showDashboard(clients[email]);
+                errorMessage.style.display = 'none';
+            } else {
+                // Erreur de connexion
+                errorMessage.style.display = 'block';
+            }
+        }
+
+        function showDashboard(client) {
+            // Masquer le formulaire de connexion
+            document.getElementById('loginForm').style.display = 'none';
+            
+            // Afficher le dashboard
+            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('logoutSection').style.display = 'block';
+            
+            // Remplir les informations client
+            document.getElementById('welcomeMessage').textContent = `Bienvenue ${client.name}`;
+            
+            // Informations client
+            const clientInfo = document.getElementById('clientInfo');
+            clientInfo.innerHTML = `
+                <div class="info-card">
+                    <h4>📧 Email</h4>
+                    <p>${client.email}</p>
+                </div>
+                <div class="info-card">
+                    <h4>📞 Téléphone</h4>
+                    <p>${client.phone}</p>
+                </div>
+                <div class="info-card">
+                    <h4>📍 Adresse</h4>
+                    <p>${client.address}</p>
+                </div>
+            `;
+            
+            // Services
+            const servicesSection = document.getElementById('servicesSection');
+            servicesSection.innerHTML = client.services.map(service => `
+                <div class="service-card">
+                    <h3>${service.title}</h3>
+                    <div class="service-status status-${service.status}">${service.statusText}</div>
+                    <div class="service-details">
+                        <p><strong>📅 Date :</strong> ${service.date}</p>
+                        <p><strong>📝 Description :</strong> ${service.description}</p>
+                        <p><strong>ℹ️ Détails :</strong> ${service.details}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function logout() {
+            // Masquer le dashboard
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('logoutSection').style.display = 'none';
+            
+            // Afficher le formulaire de connexion
+            document.getElementById('loginForm').style.display = 'block';
+            
+            // Réinitialiser le formulaire
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
