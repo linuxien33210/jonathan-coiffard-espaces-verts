@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jonathan COIFFARD - Services d'Espaces Verts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1565c0 0%, #2e7d32 50%, #1976d2 100%);
+            color: white;
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-section h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+
+        .logo-section p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .header-contact {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(21, 101, 192, 0.95), rgba(46, 125, 50, 0.9), rgba(25, 118, 210, 0.95));
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #1976d2, #1565c0);
+            color: white;
+            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #4caf50, #2e7d32);
+            color: white;
+            border: 2px solid #4caf50;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h3 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #1976d2, #2e7d32);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #4caf50, #2e7d32);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            left: 0;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #1976d2, #1565c0);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(25, 118, 210, 0.3);
+        }
+
+        .service-card:nth-child(even) .service-icon {
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);
+        }
+
+        .service-card h4 {
+            font-size: 1.4rem;
+            color: #1565c0;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .service-card:nth-child(even) h4 {
+            color: #2e7d32;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #e3f2fd 0%, #e8f5e8 50%, #f0f8ff 100%);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .contact-info h4 {
+            background: linear-gradient(45deg, #1976d2, #2e7d32);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8f5e8 100%);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background: #1976d2;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .info-item:nth-child(even) .info-icon {
+            background: #4caf50;
+        }
+
+        .why-choose {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .why-choose h4 {
+            background: linear-gradient(45deg, #1976d2, #2e7d32);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .advantage {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .advantage:hover {
+            background: #e8f5e8;
+            transform: translateX(5px);
+        }
+
+        .check-icon {
+            color: #1976d2;
+            font-weight: bold;
+        }
+
+        .advantage:nth-child(even) .check-icon {
+            color: #4caf50;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .header-contact {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero {
+                padding: 3rem 0;
+            }
+
+            .services {
+                padding: 3rem 0;
+            }
+
+            .contact {
+                padding: 3rem 0;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .service-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .service-card:nth-child(3) { animation-delay: 0.3s; }
+        .service-card:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <h1>🌿 Jonathan COIFFARD</h1>
+                    <p>Services Professionnels d'Entretien d'Espaces Verts</p>
+                </div>
+                <div class="header-contact">
+                    <div class="contact-item">
+                        <span>📞</span>
+                        <span>07 71 02 55 42</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>✉️</span>
+                        <span>contact.travail.gironde@gmail.com</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Votre Expert en Espaces Verts</h2>
+            <p>Débroussaillage, tonte, élagage et entretien de jardins professionnels. Un service de qualité avec suivi personnalisé de vos chantiers.</p>
+            <div class="cta-buttons">
+                <a href="#services" class="btn btn-primary">
+                    <span>🌱</span>
+                    Nos Services
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    <span>📞</span>
+                    Devis Gratuit
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h3>Nos Services Professionnels</h3>
+                <p class="section-subtitle">Des solutions complètes pour l'entretien de vos espaces verts avec du matériel professionnel</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🌾</div>
+                    <h4>Débroussaillage</h4>
+                    <p>Terrain difficile, herbe haute, ronces. Intervention avec matériel professionnel pour tous types de terrains et surfaces.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🌳</div>
+                    <h4>Élagage & Taille</h4>
+                    <p>Taille de haies, élagage d'arbustes, remise en forme de vos espaces verts selon les règles de l'art et les saisons.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🚜</div>
+                    <h4>Tonte & Entretien</h4>
+                    <p>Tonte régulière, entretien de pelouses, nettoyage et évacuation des déchets verts inclus dans nos prestations.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">📅</div>
+                    <h4>Contrats Annuels</h4>
+                    <p>Formules d'entretien à l'année avec tarifs préférentiels, planning personnalisé et interventions programmées.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h3>Contactez-nous</h3>
+                <p class="section-subtitle">Devis gratuit et personnalisé sous 24h</p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h4>📍 Nos Coordonnées</h4>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">👤</div>
+                        <div>
+                            <strong>Jonathan COIFFARD</strong><br>
+                            <span>Entrepreneur individuel</span>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">📍</div>
+                        <div>
+                            <strong>352 RUE Merlot</strong><br>
+                            <span>33210 Saint-Pierre-de-Mons</span>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">📞</div>
+                        <div>
+                            <strong>07 71 02 55 42</strong><br>
+                            <span>Disponible 7j/7</span>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">✉️</div>
+                        <div>
+                            <strong>contact.travail.gironde@gmail.com</strong><br>
+                            <span>Réponse sous 24h</span>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">🏢</div>
+                        <div>
+                            <strong>SIRET :</strong> 829 320 845 00029<br>
+                            <span>Micro-entreprise en franchise de TVA</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="why-choose">
+                    <h4>🏆 Pourquoi Nous Choisir ?</h4>
+                    
+                    <div class="advantage">
+                        <span class="check-icon">✓</span>
+                        <span>Service Professionnel et Expérimenté</span>
+                    </div>
+                    
+                    <div class="advantage">
+                        <span class="check-icon">✓</span>
+                        <span>Tarifs Transparents et Compétitifs</span>
+                    </div>
+                    
+                    <div class="advantage">
+                        <span class="check-icon">✓</span>
+                        <span>Suivi Digital de vos Chantiers</span>
+                    </div>
+                    
+                    <div class="advantage">
+                        <span class="check-icon">✓</span>
+                        <span>Respect de l'Environnement</span>
+                    </div>
+                    
+                    <div class="advantage">
+                        <span class="check-icon">✓</span>
+                        <span>Devis Gratuit sous 24h</span>
+                    </div>
+                    
+                    <div class="advantage">
+                        <span class="check-icon">✓</span>
+                        <span>Matériel Professionnel et Moderne</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'linear-gradient(135deg, #0d47a1 0%, #1b5e20 50%, #1565c0 100%)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #1565c0 0%, #2e7d32 50%, #1976d2 100%)';
+            }
+        });
+    </script>
+</body>
+</html>
